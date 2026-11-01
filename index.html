@@ -553,7 +553,7 @@ var XC=60,ZC={free:{key:`free`,name:`Free`,price:`$0`,priceNote:`forever`,taglin
         .wf-card { border-radius: 30px !important; border: 1px solid color-mix(in srgb, var(--wf-rule) 72%, rgba(255,255,255,.4)) !important; box-shadow: 0 52px 120px -44px rgba(42,10,94,.52), 0 1px 0 rgba(255,255,255,.68) inset !important; backdrop-filter: blur(22px) saturate(135%); }
         .wf-btn-primary { border-radius: 13px !important; background: linear-gradient(135deg,#7a2ff0,#9a5cff 62%,#66aaff) !important; box-shadow: 0 20px 38px -21px rgba(122,47,240,.92),0 1px 0 rgba(255,255,255,.38) inset !important; }
         .wf-btn-primary:hover { transform: translateY(-2px); filter: brightness(1.04); }
-      `}),(0,$.jsxs)(`div`,{className:`wf-intro-card`,children:[n===0&&(0,$.jsxs)($.Fragment,{children:[(0,$.jsx)(`div`,{className:`wf-fox-wrap`,children:(0,$.jsx)(`img`,{src:iT,alt:`Study Fox mascot`,className:`wf-fox-img`})}),(0,$.jsxs)(`div`,{className:`wf-bubble`,children:[(0,$.jsx)(`h1`,{className:`wf-h1`,children:`Hey there, I'm Fox 🦊`}),(0,$.jsx)(`p`,{className:`wf-p`,children:`I'll be your personal guide on the way to getting ready for the Digital SAT.`})]}),(0,$.jsx)(`div`,{className:`wf-spacer`})]}),n===1&&(0,$.jsxs)($.Fragment,{children:[(0,$.jsx)(`div`,{className:`wf-fox-wrap`,children:(0,$.jsx)(`img`,{src:iT,alt:`Study Fox mascot`,className:`wf-fox-img wf-fox-small`})}),(0,$.jsx)(`h1`,{className:`wf-h1`,style:{fontSize:21,marginBottom:4},children:`What Study Fox does`}),(0,$.jsx)(`p`,{className:`wf-p`,style:{marginBottom:18},children:`Everything you need to prep for the SAT, all in one app:`}),(0,$.jsx)(`div`,{className:`wf-features`,children:i.map((e,t)=>{let n=e.icon;return(0,$.jsxs)(`div`,{className:`wf-feature-row`,style:{animationDelay:`${.1+t*.08}s`},children:[(0,$.jsx)(`div`,{className:`wf-feature-icon`,children:(0,$.jsx)(n,{size:17})}),(0,$.jsxs)(`div`,{children:[(0,$.jsx)(`p`,{className:`wf-feature-title`,children:e.title}),(0,$.jsx)(`p`,{className:`wf-feature-text`,children:e.text})]})]},t)})})]}),n===2&&(0,$.jsxs)($.Fragment,{children:[(0,$.jsx)(`div`,{className:`wf-cta-icon`,children:(0,$.jsx)(kt,{size:30})}),(0,$.jsx)(`h1`,{className:`wf-h1`,children:`Ready to get started?`}),(0,$.jsx)(`p`,{className:`wf-p`,style:{marginBottom:8,maxWidth:320},children:`Sign in with Google to start your SAT prep journey. Fox is waiting for you.`}),(0,$.jsx)(`div`,{className:`wf-spacer`})]}),(0,$.jsx)(`div`,{className:`wf-dots`,children:Array.from({length:3}).map((e,t)=>(0,$.jsx)(`div`,{className:`wf-dot `+(t===n?`active`:``)},t))}),(0,$.jsxs)(`div`,{className:`wf-actions`,children:[n>0&&(0,$.jsx)(`button`,{type:`button`,className:`wf-btn-ghost`,onClick:()=>{n>0&&r(e=>e-1)},children:`Back`}),(0,$.jsx)(`button`,{type:`button`,className:`wf-btn-primary`,onClick:()=>{n<2?r(e=>e+1):typeof t==`function`&&t()},children:n===2?`Continue`:`Next`})]})]})]})}function rT({theme:e=`light`,onToggleTheme:t,onAuthenticated:n}){let[r,i]=(0,O.useState)(`login`),a=(0,O.useRef)(null),o=(0,O.useRef)(null),[s,c]=(0,O.useState)({email:``,password:``,rememberMe:!1}),[l,u]=(0,O.useState)({name:``,email:``,password:``,confirmPassword:``}),[d,f]=(0,O.useState)(``),[p,m]=(0,O.useState)(``),[h,g]=(0,O.useState)(``),[_,v]=(0,O.useState)(0);(0,O.useEffect)(()=>{if(_<=0)return;let e=setInterval(()=>v(e=>Math.max(0,e-1)),1e3);return()=>clearInterval(e)},[_]);let[y,b]=(0,O.useState)(!1),[x,S]=(0,O.useState)(!1),[C,w]=(0,O.useState)(!1),[T,E]=(0,O.useState)(``),[D,k]=(0,O.useState)(``),A=()=>{E(``),k(``)},j=e=>{A(),i(e)},M=e=>/^\S+@\S+\.\S+$/.test(e),N=e=>{let t={id:e.id,name:e.name,email:e.email,provider:e.provider||`email`,role:(e.role===`admin`||e.role===`support_agent`||e.role===`support`)?(e.role===`admin`?`admin`:`support_agent`):`student`};return typeof n==`function`&&n(t),t};return(0,O.useEffect)(()=>{let id=window.STUDYFOX_GOOGLE_CLIENT_ID;if((r!==`login`&&r!==`register`)||!id)return;let dead=!1,init=()=>{if(dead||!a.current||!window.google||!window.google.accounts)return;google.accounts.id.initialize({client_id:id,callback:async resp=>{A(),w(!0);try{let d=await YC(`/auth/google`,{method:`POST`,body:JSON.stringify({credential:resp.credential})});N(d.user),k(`Login successful.`)}catch(er){E(er.message||`Google sign-in failed.`)}finally{w(!1)}}});a.current.innerHTML=``;google.accounts.id.renderButton(a.current,{theme:`outline`,size:`large`,shape:`pill`,text:`continue_with`,width:Math.min(340,a.current.clientWidth||340)})};if(window.google&&window.google.accounts)init();else{let sc=document.querySelector(`script[data-gsi]`);sc||(sc=document.createElement(`script`),sc.src=`https://accounts.google.com/gsi/client`,sc.async=!0,sc.setAttribute(`data-gsi`,`1`),document.head.appendChild(sc)),sc.addEventListener(`load`,init)}return()=>{dead=!0}},[r,e]),(0,$.jsxs)(`div`,{className:`studyfox-auth-root`,"data-theme":e,ref:o,children:[(0,$.jsx)(`style`,{children:`
+      `}),(0,$.jsxs)(`div`,{className:`wf-intro-card`,children:[n===0&&(0,$.jsxs)($.Fragment,{children:[(0,$.jsx)(`div`,{className:`wf-fox-wrap`,children:(0,$.jsx)(`img`,{src:iT,alt:`Study Fox mascot`,className:`wf-fox-img`})}),(0,$.jsxs)(`div`,{className:`wf-bubble`,children:[(0,$.jsx)(`h1`,{className:`wf-h1`,children:`Hey there, I'm Fox 🦊`}),(0,$.jsx)(`p`,{className:`wf-p`,children:`I'll be your personal guide on the way to getting ready for the Digital SAT.`})]}),(0,$.jsx)(`div`,{className:`wf-spacer`})]}),n===1&&(0,$.jsxs)($.Fragment,{children:[(0,$.jsx)(`div`,{className:`wf-fox-wrap`,children:(0,$.jsx)(`img`,{src:iT,alt:`Study Fox mascot`,className:`wf-fox-img wf-fox-small`})}),(0,$.jsx)(`h1`,{className:`wf-h1`,style:{fontSize:21,marginBottom:4},children:`What Study Fox does`}),(0,$.jsx)(`p`,{className:`wf-p`,style:{marginBottom:18},children:`Everything you need to prep for the SAT, all in one app:`}),(0,$.jsx)(`div`,{className:`wf-features`,children:i.map((e,t)=>{let n=e.icon;return(0,$.jsxs)(`div`,{className:`wf-feature-row`,style:{animationDelay:`${.1+t*.08}s`},children:[(0,$.jsx)(`div`,{className:`wf-feature-icon`,children:(0,$.jsx)(n,{size:17})}),(0,$.jsxs)(`div`,{children:[(0,$.jsx)(`p`,{className:`wf-feature-title`,children:e.title}),(0,$.jsx)(`p`,{className:`wf-feature-text`,children:e.text})]})]},t)})})]}),n===2&&(0,$.jsxs)($.Fragment,{children:[(0,$.jsx)(`div`,{className:`wf-cta-icon`,children:(0,$.jsx)(kt,{size:30})}),(0,$.jsx)(`h1`,{className:`wf-h1`,children:`Ready to get started?`}),(0,$.jsx)(`p`,{className:`wf-p`,style:{marginBottom:8,maxWidth:320},children:`Sign in with Google to start your SAT prep journey. Fox is waiting for you.`}),(0,$.jsx)(`div`,{className:`wf-spacer`})]}),(0,$.jsx)(`div`,{className:`wf-dots`,children:Array.from({length:3}).map((e,t)=>(0,$.jsx)(`div`,{className:`wf-dot `+(t===n?`active`:``)},t))}),(0,$.jsxs)(`div`,{className:`wf-actions`,children:[n>0&&(0,$.jsx)(`button`,{type:`button`,className:`wf-btn-ghost`,onClick:()=>{n>0&&r(e=>e-1)},children:`Back`}),(0,$.jsx)(`button`,{type:`button`,className:`wf-btn-primary`,onClick:()=>{n<2?r(e=>e+1):typeof t==`function`&&t()},children:n===2?`Continue`:`Next`})]})]})]})}function rT({theme:e=`light`,onToggleTheme:t,onAuthenticated:n}){let[r,i]=(0,O.useState)(()=>new URLSearchParams(location.hash.replace(/^#/,``)).get(`type`)==`recovery`?`reset`:`login`),a=(0,O.useRef)(null),o=(0,O.useRef)(null),[s,c]=(0,O.useState)({email:``,password:``,rememberMe:!1}),[l,u]=(0,O.useState)({name:``,email:``,password:``,confirmPassword:``}),[d,f]=(0,O.useState)(``),[p,m]=(0,O.useState)(``),[h,g]=(0,O.useState)(``),[_,v]=(0,O.useState)(0);(0,O.useEffect)(()=>{if(_<=0)return;let e=setInterval(()=>v(e=>Math.max(0,e-1)),1e3);return()=>clearInterval(e)},[_]);let[y,b]=(0,O.useState)(!1),[x,S]=(0,O.useState)(!1),[C,w]=(0,O.useState)(!1),[T,E]=(0,O.useState)(``),[D,k]=(0,O.useState)(``),A=()=>{E(``),k(``)},j=e=>{A(),i(e)},M=e=>/^\S+@\S+\.\S+$/.test(e),N=e=>{let t={id:e.id,name:e.name,email:e.email,provider:e.provider||`email`,role:(e.role===`admin`||e.role===`support_agent`||e.role===`support`)?(e.role===`admin`?`admin`:`support_agent`):`student`};return typeof n==`function`&&n(t),t};return(0,O.useEffect)(()=>{let id=window.STUDYFOX_GOOGLE_CLIENT_ID;if((r!==`login`&&r!==`register`)||!id)return;let dead=!1,init=()=>{if(dead||!a.current||!window.google||!window.google.accounts)return;google.accounts.id.initialize({client_id:id,callback:async resp=>{A(),w(!0);try{let d=await YC(`/auth/google`,{method:`POST`,body:JSON.stringify({credential:resp.credential})});N(d.user),k(`Login successful.`)}catch(er){E(er.message||`Google sign-in failed.`)}finally{w(!1)}}});a.current.innerHTML=``;google.accounts.id.renderButton(a.current,{theme:`outline`,size:`large`,shape:`pill`,text:`continue_with`,width:Math.min(340,a.current.clientWidth||340)})};if(window.google&&window.google.accounts)init();else{let sc=document.querySelector(`script[data-gsi]`);sc||(sc=document.createElement(`script`),sc.src=`https://accounts.google.com/gsi/client`,sc.async=!0,sc.setAttribute(`data-gsi`,`1`),document.head.appendChild(sc)),sc.addEventListener(`load`,init)}return()=>{dead=!0}},[r,e]),(0,$.jsxs)(`div`,{className:`studyfox-auth-root`,"data-theme":e,ref:o,children:[(0,$.jsx)(`style`,{children:`
         .studyfox-auth-root {
           --primary: #7a2ff0;
           --primary-bright: #9a5cff;
@@ -12272,7 +12272,84 @@ function sfExport(json,name){
  try{let l=document.createElement(`a`);l.href=`data:application/json;charset=utf-8,`+encodeURIComponent(json);l.download=name;l.style.display=`none`;document.body.appendChild(l);l.click();setTimeout(()=>l.remove(),500)}catch{}
  if(framed){try{navigator.clipboard.writeText(json);return`Progress exported (also copied to clipboard).`}catch{}}
  return`Progress exported.`}
-function tk(){let[e,t]=(0,O.useState)(null),[n,r]=(0,O.useState)(!0),[i,a]=(0,O.useState)(()=>fw()),[o,s]=(0,O.useState)(()=>gw()||`light`);(0,O.useEffect)(()=>{let e=!1;return YC(`/auth/me`).then(({user:n})=>{e||t(n)}).catch(()=>{}).finally(()=>{e||r(!1)}),()=>{e=!0}},[]);let c=e=>{s(e),_w(e)},[pwx,setPwx]=(0,O.useState)(!0);(0,O.useEffect)(()=>{e&&setPwx(!0)},[e?.id||e?.email||(e?1:0)]);return i?n?null:e?pwx?(0,$.jsx)(SFPay,{user:e,onDone:()=>{try{localStorage.removeItem(`studyfox_paywall_pending`)}catch{}setPwx(!1)},theme:o,onToggleTheme:()=>c(o===`dark`?`light`:`dark`)}):(0,$.jsx)(iO,{user:e,onLogout:async()=>{try{e?.provider!==`demo`&&await YC(`/auth/logout`,{method:`POST`})}catch{}finally{t(null);mw();try{localStorage.removeItem(`studyfox_onboarding`)}catch{}a(!1)}},onReplayIntro:e=>{mw(),e&&c(e),a(!1)},initialTheme:o,onThemeChange:c}):(0,$.jsx)(rT,{theme:o,onToggleTheme:()=>c(o===`dark`?`light`:`dark`),onAuthenticated:t}):(0,$.jsx)(SFOnb,{onFinish:()=>{pw(),a(!0)},theme:o,onToggleTheme:()=>c(o===`dark`?`light`:`dark`)})}(0,BC.createRoot)(document.getElementById(`root`)).render((0,$.jsx)(tk,{}));</script>
+function tk(){let[e,t]=(0,O.useState)(null),[n,r]=(0,O.useState)(!0),[i,a]=(0,O.useState)(()=>fw()),[o,s]=(0,O.useState)(()=>gw()||`light`);(0,O.useEffect)(()=>{let e=!1;return YC(`/auth/me`).then(({user:n})=>{e||t(n)}).catch(()=>{}).finally(()=>{e||r(!1)}),()=>{e=!0}},[]);let c=e=>{s(e),_w(e)},[pwx,setPwx]=(0,O.useState)(!0);(0,O.useEffect)(()=>{e&&setPwx(!0)},[e?.id||e?.email||(e?1:0)]);return i?n?null:e?pwx?(0,$.jsx)(SFPay,{user:e,onDone:()=>{try{localStorage.removeItem(`studyfox_paywall_pending`)}catch{}setPwx(!1)},theme:o,onToggleTheme:()=>c(o===`dark`?`light`:`dark`)}):(0,$.jsx)(iO,{user:e,onLogout:async()=>{try{e?.provider!==`demo`&&await YC(`/auth/logout`,{method:`POST`})}catch{}finally{t(null);mw();try{localStorage.removeItem(`studyfox_onboarding`)}catch{}a(!1)}},onReplayIntro:e=>{mw(),e&&c(e),a(!1)},initialTheme:o,onThemeChange:c}):(0,$.jsx)(rT,{theme:o,onToggleTheme:()=>c(o===`dark`?`light`:`dark`),onAuthenticated:t}):(0,$.jsx)(SFOnb,{onFinish:()=>{pw(),a(!0)},theme:o,onToggleTheme:()=>c(o===`dark`?`light`:`dark`)})}
+/* StudyFox Supabase Auth integration */
+(function(){
+  var SUPABASE_URL='https://mdbzntqdgejucyykeczs.supabase.co';
+  var SUPABASE_KEY='sb_publishable_J99ikHjFo6csT8QTCZHpbw_j6UWvQUh';
+  var clientPromise=new Promise(function(resolve,reject){
+    if(window.supabase&&window.supabase.createClient){resolve(window.supabase);return;}
+    var sc=document.createElement('script');
+    sc.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+    sc.onload=function(){if(window.supabase&&window.supabase.createClient)resolve(window.supabase);else reject(new Error('Supabase library failed to load.'));};
+    sc.onerror=function(){reject(new Error('Could not load Supabase. Check your internet connection.'));};
+    document.head.appendChild(sc);
+  }).then(function(lib){
+    var c=lib.createClient(SUPABASE_URL,SUPABASE_KEY);
+    window.studyFoxSupabase=c;
+    return c;
+  });
+  window.studyFoxSupabaseReady=clientPromise;
+  var originalYC=YC;
+  YC=async function(path,opts){
+    opts=opts||{};
+    if(typeof path!=='string'||!path.startsWith('/auth/'))return originalYC(path,opts);
+    var c=await clientPromise;
+    var body={};
+    try{body=opts.body?JSON.parse(opts.body):{};}catch(e){}
+    var result, user;
+    if(path==='/auth/register'){
+      result=await c.auth.signUp({email:String(body.email||'').trim().toLowerCase(),password:String(body.password||''),options:{data:{full_name:String(body.name||'').trim()},emailRedirectTo:location.origin+location.pathname}});
+      if(result.error)throw result.error;
+      return {user:result.data.user?{id:result.data.user.id,email:result.data.user.email,name:result.data.user.user_metadata?.full_name||body.name,provider:'email'}:null,message:'Account created. Check your email to confirm your account, then log in.'};
+    }
+    if(path==='/auth/login'){
+      result=await c.auth.signInWithPassword({email:String(body.email||'').trim().toLowerCase(),password:String(body.password||'')});
+      if(result.error)throw result.error;
+      user=result.data.user;
+      return {user:{id:user.id,email:user.email,name:user.user_metadata?.full_name||user.user_metadata?.name||user.email,provider:'email',role:user.app_metadata?.role||'student'}};
+    }
+    if(path==='/auth/google'){
+      result=await c.auth.signInWithIdToken({provider:'google',token:String(body.credential||''),nonce:undefined});
+      if(result.error)throw result.error;
+      user=result.data.user;
+      return {user:{id:user.id,email:user.email,name:user.user_metadata?.full_name||user.user_metadata?.name||user.email,provider:'google',role:user.app_metadata?.role||'student'}};
+    }
+    if(path==='/auth/me'){
+      result=await c.auth.getUser();
+      if(result.error||!result.data.user)throw new Error('Not signed in.');
+      user=result.data.user;
+      return {user:{id:user.id,email:user.email,name:user.user_metadata?.full_name||user.user_metadata?.name||user.email,provider:user.app_metadata?.provider||'email',role:user.app_metadata?.role||'student'}};
+    }
+    if(path==='/auth/logout'){
+      result=await c.auth.signOut();
+      if(result.error)throw result.error;
+      return {};
+    }
+    if(path==='/auth/forgot-password'){
+      result=await c.auth.resetPasswordForEmail(String(body.email||'').trim().toLowerCase(),{redirectTo:location.origin+location.pathname});
+      if(result.error)throw result.error;
+      return {message:'Password reset link sent. Open the email and follow the link, then return here to set your new password.'};
+    }
+    if(path==='/auth/reset-password'){
+      result=await c.auth.updateUser({password:String(body.newPassword||'')});
+      if(result.error)throw result.error;
+      return {message:'Password updated successfully.'};
+    }
+    return originalYC(path,opts);
+  };
+  clientPromise.then(async function(c){
+    try{
+      var hash=new URLSearchParams(location.hash.replace(/^#/,''));
+      if(hash.get('type')==='recovery'){
+        var access=hash.get('access_token'),refresh=hash.get('refresh_token');
+        if(access&&refresh)await c.auth.setSession({access_token:access,refresh_token:refresh});
+      }
+    }catch(e){console.warn('Supabase recovery session:',e);}
+  }).catch(function(e){console.error('StudyFox Supabase initialization:',e);});
+})();
+
+(0,BC.createRoot)(document.getElementById(`root`)).render((0,$.jsx)(tk,{}));</script>
 <style id="sf-lessons-patch">.lesson-player-frame.sf-doc-frame{aspect-ratio:auto;height:min(76vh,760px);min-height:460px;background:var(--bg-deep,#0d0719)}@media (max-width:700px){.lesson-player-frame.sf-doc-frame{height:78vh;min-height:420px}}
         /* Achievements: restore the badge cards and section headings. */
         </style>
