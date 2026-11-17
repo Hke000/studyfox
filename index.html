@@ -13873,7 +13873,23 @@ html body #root .sat-root.sat-root .sat-upgrade-btn::before{width:24px!important
 
 <!-- StudyFox deployment safeguards -->
 <style id="studyfox-final-safeguards">
-  :where(button,a,input,select,textarea,[role="button""]):focus-visible{outline:3px solid #a78bfa!important;outline-offset:3px!important}
+  /* Accessible keyboard focus: valid selector (the previous selector had a stray quote). */
+  :where(button,a,input,select,textarea,[role="button"]):focus-visible{outline:3px solid #a78bfa!important;outline-offset:3px!important;border-radius:6px}
+  :where(button,a,input,select,textarea,[role="button"]):focus:not(:focus-visible){outline:none}
+  :where(img,video,canvas){max-width:100%}
+  html,body{max-width:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  #root,.sat-root{min-width:0;max-width:100%}
+  .sat-root :where(.chat-pane,.msg-row,.msg-bubble,.qz-pane,.gr-pane,.sfs-pane){min-width:0}
+  .sat-root .msg-bubble{overflow-wrap:anywhere;word-break:normal}
+  .sat-root :where(input,select,textarea){max-width:100%;min-width:0}
+  .sat-root :where(input,select,textarea):focus-visible{border-color:#9a5cff!important;box-shadow:0 0 0 3px rgba(154,92,255,.18)!important}
+  .sf-sat-tablewrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(max-width:640px){
+    .sat-root .sat-topnav{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+    .sat-root .sat-topnav :where(.sat-nav-item,.sat-nav-group-head){flex:0 0 auto}
+    .sat-root :where(.chat-pane,.msg-bubble,.qz-pane,.gr-pane){overflow-wrap:anywhere}
+  }
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
   img{max-width:100%}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
@@ -13886,5 +13902,79 @@ html body #root .sat-root.sat-root .sat-upgrade-btn::before{width:24px!important
 */
 </script>
 
+<style id="studyfox-settings-redesign-v2">
+/* Study Fox — Settings page redesign v2 */
+.sat-root .settings-pane{padding:34px clamp(16px,4vw,48px) 64px!important;overflow-y:auto!important;background:var(--bg-deep)!important}
+.sat-root .settings-inner{width:min(100%,900px)!important;max-width:900px!important;margin:0 auto!important;display:flex!important;flex-direction:column!important;gap:18px!important}
+.sat-root .settings-inner>*{animation:none!important}
+.sat-root .settings-hero{display:flex!important;align-items:center!important;gap:18px!important;min-height:132px!important;padding:24px 28px!important;margin:0!important;border:1px solid rgba(154,92,255,.28)!important;border-radius:22px!important;background:linear-gradient(118deg,#4c2599 0%,#713bd0 58%,#9259e8 100%)!important;box-shadow:0 18px 44px -30px rgba(109,74,255,.7)!important}
+.sat-root[data-theme=dark] .settings-hero{background:linear-gradient(118deg,#26154b 0%,#42247e 58%,#6039a8 100%)!important}
+.sat-root .settings-hero::before,.sat-root .settings-hero::after{display:none!important}
+.sat-root .settings-avatar{width:68px!important;height:68px!important;box-shadow:0 0 0 4px rgba(255,255,255,.2)!important}
+.sat-root .settings-avatar-btn{flex:0 0 auto!important}
+.sat-root .settings-hero-name{font-size:clamp(20px,2.5vw,26px)!important;font-weight:800!important;color:#fff!important;letter-spacing:-.035em!important}
+.sat-root .settings-hero-email{font-size:13px!important;color:rgba(255,255,255,.78)!important;margin-top:6px!important}
+.sat-root .settings-hero-stats{display:none!important}
+.sat-root .settings-plan-chip{padding:5px 11px!important;border:1px solid rgba(255,255,255,.25)!important;border-radius:999px!important;font-size:10px!important;letter-spacing:.06em!important}
+.sat-root .settings-plan-chip.free{background:rgba(255,255,255,.16)!important;color:#fff!important}
+.sat-root .settings-plan-chip.paid{background:#f4d88b!important;color:#4b3300!important}
+.sat-root .settings-toolbar{display:flex!important;flex-direction:column!important;gap:12px!important;padding:16px!important;border:1px solid var(--sf-line,var(--rule))!important;border-radius:18px!important;background:var(--surface)!important;box-shadow:0 8px 24px -22px rgba(30,20,55,.35)!important}
+.sat-root .settings-search{min-height:46px!important;border:1px solid var(--sf-line,var(--rule))!important;border-radius:12px!important;background:var(--bg-deep)!important;padding:0 14px!important}
+.sat-root .settings-search:focus-within{border-color:#9864ed!important;box-shadow:0 0 0 3px rgba(154,92,255,.12)!important}
+.sat-root .settings-search input{font-size:14px!important;min-height:44px!important}
+.sat-root .settings-tabs{display:flex!important;gap:7px!important;overflow-x:auto!important;padding:0 0 2px!important;scrollbar-width:thin!important}
+.sat-root .settings-tabs button{flex:0 0 auto!important;padding:8px 14px!important;border:1px solid var(--sf-line,var(--rule))!important;border-radius:999px!important;background:transparent!important;color:var(--ink-soft)!important;font-size:12px!important;font-weight:650!important;white-space:nowrap!important}
+.sat-root .settings-tabs button.active{background:#7540cf!important;border-color:#7540cf!important;color:#fff!important;box-shadow:0 5px 14px -9px rgba(117,64,207,.8)!important}
+.sat-root .settings-section-label{display:flex!important;align-items:center!important;gap:10px!important;margin:10px 2px -8px!important;padding:0!important;color:var(--ink)!important;font-size:12px!important;font-weight:800!important;letter-spacing:.11em!important;text-transform:uppercase!important}
+.sat-root .settings-section-label::before{content:""!important;display:block!important;width:5px!important;height:17px!important;border-radius:8px!important;background:#8750df!important;box-shadow:none!important}
+.sat-root .settings-section-label::after{display:none!important}
+.sat-root .settings-card{overflow:hidden!important;margin:0!important;border:1px solid var(--sf-line,var(--rule))!important;border-radius:18px!important;background:var(--surface)!important;box-shadow:0 10px 28px -25px rgba(25,15,50,.4)!important}
+.sat-root .settings-row{min-height:72px!important;gap:14px!important;padding:14px 18px!important;border:0!important;border-bottom:1px solid var(--sf-line,var(--rule-soft))!important;background:transparent!important;transition:background .16s ease!important}
+.sat-root .settings-row:last-child{border-bottom:0!important}
+.sat-root .settings-row:hover{background:color-mix(in srgb,#8750df 6%,var(--surface))!important}
+.sat-root .settings-row-icon{width:36px!important;height:36px!important;flex:0 0 36px!important;display:grid!important;place-items:center!important;border-radius:11px!important;background:color-mix(in srgb,#8750df 12%,var(--surface))!important;color:#8750df!important}
+.sat-root .settings-row-icon.gold,.sat-root .settings-row-icon.muted{background:color-mix(in srgb,#8750df 10%,var(--surface))!important;color:#8750df!important}
+.sat-root .settings-row-label{font-size:13px!important;font-weight:750!important;color:var(--ink)!important}
+.sat-root .settings-row-sub{margin-top:4px!important;font-size:11.5px!important;line-height:1.5!important;color:var(--ink-soft)!important}
+.sat-root .settings-row-right{gap:8px!important}
+.sat-root .settings-select,.sat-root .settings-input{min-height:38px!important;border:1px solid var(--sf-line,var(--rule))!important;border-radius:10px!important;background:var(--bg-deep)!important;color:var(--ink)!important;padding:7px 10px!important;font-size:12px!important}
+.sat-root .settings-input-sm{width:112px!important}
+.sat-root .settings-row .seg{padding:3px!important;border:1px solid var(--sf-line,var(--rule))!important;border-radius:11px!important;background:var(--bg-deep)!important}
+.sat-root .settings-row .seg button{padding:7px 10px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:var(--ink-soft)!important;font-size:11px!important}
+.sat-root .settings-row .seg button.active{background:#7540cf!important;color:#fff!important}
+.sat-root .settings-switch-track{border-radius:999px!important}
+.sat-root .settings-row-cta{color:#8750df!important;font-weight:750!important}
+.sat-root .settings-row.danger:hover{background:rgba(220,65,85,.07)!important}
+.sat-root .settings-row.danger .settings-row-label{color:#d94b60!important}
+.sat-root .settings-toast{position:sticky!important;top:8px!important;z-index:5!important;border-radius:12px!important}
+.sat-root .settings-empty{padding:28px!important;border:1px dashed var(--sf-line,var(--rule))!important;border-radius:16px!important;background:var(--surface)!important;text-align:center!important;color:var(--ink-soft)!important}
+.sat-root .settings-version{padding:12px 4px!important;text-align:center!important;font-size:10px!important;color:var(--ink-soft)!important;opacity:.75!important}
+.sat-root .settings-confirm-row{padding:14px 18px!important;background:rgba(220,65,85,.06)!important;border-top:1px solid rgba(220,65,85,.18)!important}
+.sat-root .settings-modal{border-radius:20px!important}
+@media(max-width:720px){
+ .sat-root .settings-pane{padding:18px 12px 44px!important}
+ .sat-root .settings-inner{gap:13px!important}
+ .sat-root .settings-hero{padding:18px!important;gap:14px!important;border-radius:18px!important}
+ .sat-root .settings-avatar{width:56px!important;height:56px!important}
+ .sat-root .settings-hero-name{font-size:19px!important}
+ .sat-root .settings-toolbar{padding:12px!important}
+ .sat-root .settings-row{align-items:flex-start!important;padding:13px 12px!important;gap:10px!important}
+ .sat-root .settings-row-icon{width:32px!important;height:32px!important;flex-basis:32px!important}
+ .sat-root .settings-row-right{max-width:48%;flex-wrap:wrap!important;justify-content:flex-end!important}
+ .sat-root .settings-row .seg{max-width:100%;overflow-x:auto}
+ .sat-root .settings-row .seg button{white-space:nowrap!important;padding:7px 8px!important}
+ .sat-root .settings-select{max-width:150px!important}
+ .sat-root .settings-input{max-width:132px!important}
+}
+@media(max-width:420px){
+ .sat-root .settings-hero{align-items:flex-start!important}
+ .sat-root .settings-hero-name{font-size:17px!important}
+ .sat-root .settings-row{flex-wrap:wrap!important}
+ .sat-root .settings-row-body{flex:1 1 calc(100% - 48px)!important}
+ .sat-root .settings-row-right{width:100%!important;max-width:none!important;padding-left:42px!important;justify-content:flex-start!important}
+}
+@media(prefers-reduced-motion:reduce){.sat-root .settings-row{transition:none!important}}
+
+</style>
 </body>
 </html>
