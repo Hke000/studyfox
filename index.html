@@ -12423,12 +12423,50 @@ function tk(){let[e,t]=(0,O.useState)(null),[n,r]=(0,O.useState)(!0),[i,a]=(0,O.
     return c;
   });
   window.studyFoxSupabaseReady=clientPromise;
+  /* ===== FreeLLMAPI (OpenAI-compatible proxy) for the AI tutor ===== */
+  var SF_FREELLM={
+    baseUrl:'http://localhost:3001/v1', /* CHANGE to your FreeLLMAPI server URL, e.g. https://your-domain.com/v1 */
+    apiKey:'freellmapi-09d7bd02f236a6367fd970dd18fb991b7bba3122bade7058',
+    model:'auto'
+  };
+  window.SF_FREELLM=SF_FREELLM;
+  function sfToOpenAIContent(c){
+    if(typeof c==='string')return c;
+    if(!Array.isArray(c))return String(c==null?'':c);
+    var parts=[];
+    c.forEach(function(b){
+      if(!b)return;
+      if(b.type==='text'&&b.text)parts.push({type:'text',text:b.text});
+      else if(b.type==='image'&&b.source&&b.source.type==='base64')parts.push({type:'image_url',image_url:{url:'data:'+(b.source.media_type||'image/png')+';base64,'+b.source.data}});
+      else if(b.type==='document'&&b.source&&b.source.type==='text'&&b.source.data)parts.push({type:'text',text:b.source.data});
+    });
+    if(parts.every(function(x){return x.type==='text'}))return parts.map(function(x){return x.text}).join('\n');
+    return parts;
+  }
+  async function sfFreeLLM(aiBody,signal){
+    var msgs=[];
+    if(aiBody.system)msgs.push({role:'system',content:typeof aiBody.system==='string'?aiBody.system:sfToOpenAIContent(aiBody.system)});
+    (aiBody.messages||[]).forEach(function(m){msgs.push({role:m.role==='assistant'?'assistant':'user',content:sfToOpenAIContent(m.content)})});
+    var payload={model:SF_FREELLM.model||'auto',messages:msgs,max_tokens:Math.max(256,aiBody.max_tokens||1000)};
+    if(typeof aiBody.temperature==='number')payload.temperature=aiBody.temperature;
+    var res=await fetch(SF_FREELLM.baseUrl.replace(/\/+$/,'')+'/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+SF_FREELLM.apiKey},body:JSON.stringify(payload),signal:signal});
+    var data=await res.json().catch(function(){return {}});
+    if(!res.ok){var er=new Error((data&&data.error&&(data.error.message||data.error))||('FreeLLMAPI request failed ('+res.status+')'));er.status=res.status;throw er}
+    var t=data&&data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content;
+    if(Array.isArray(t))t=t.map(function(x){return x&&x.text||''}).join('');
+    if(!t||!String(t).trim())throw new Error('Empty response from tutor');
+    return {content:[{type:'text',text:String(t)}]};
+  }
   var originalYC=YC;
   YC=async function(path,opts){
     opts=opts||{};
     if(path==='/ai/claude'){
-      var aiClient=await clientPromise;
       var aiBody={};try{aiBody=opts.body?JSON.parse(opts.body):{};}catch(e){}try{if(aiBody&&typeof aiBody.system==='string'&&/expert, encouraging Digital SAT tutor/.test(aiBody.system)&&window.__sfmlTutorExtra){aiBody.system+=window.__sfmlTutorExtra(aiBody.messages);}}catch(e){}
+      if(SF_FREELLM.apiKey&&SF_FREELLM.baseUrl){
+        try{return await sfFreeLLM(aiBody,opts.signal);}
+        catch(fe){if(fe&&fe.name==='AbortError')throw fe;console.warn('FreeLLMAPI failed, falling back to Supabase AI:',fe);}
+      }
+      var aiClient=await clientPromise;
       var aiResult=await aiClient.functions.invoke('studyfox-ai',{body:aiBody,signal:opts.signal});
       if(aiResult.error)throw aiResult.error;
       return aiResult.data;
